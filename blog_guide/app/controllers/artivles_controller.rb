@@ -1,0 +1,2 @@
+class ArtivlesController < ApplicationController
+end
