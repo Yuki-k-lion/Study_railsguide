@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
 # get '/patients/:id', to: 'patients#show', as: 'patient'
-  resources :articles
+  resources :articles do
+    resources :comments
+  end
 
 
 # コントローラを名前空間によってグループ化することもできます。
