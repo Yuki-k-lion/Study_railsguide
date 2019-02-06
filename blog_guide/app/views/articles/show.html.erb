@@ -8,32 +8,18 @@
 </p>
 
 <h2>Comments</h2>
-<% @article.comments.each do |comment| %>
-  <p>
-    <strong>Commenter:</strong>
-    <%= comment.commenter %>
-  </p>
+<%= render @article.comments %>
 
-  <p>
-    <strong>Comment:</strong>
-    <%= comment.body %>
-  </p>
-<% end %>
+<!-- これにより、app/views/comments/_comment.html.erbパーシャルが、
+@article.commentsコレクションに含まれているコメントを
+すべて出力するようになりました。
+renderメソッドが@article.commentsコレクションに含まれる要素を
+1つ1つ列挙するときに、各コメントをパーシャルと同じ名前のローカル変数に
+自動的に割り当てます。この場合はcommentというローカル変数が使用され、
+これはパーシャルでの表示に使用されます。 -->
 
 <h2>Add a comment:</h2>
-<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
-  <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
-  </p>
-  <p>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %>
-  </p>
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%= render "comments/form"%>
 
 <%= link_to 'Back', articles_path %>
 <%= link_to 'Edit', edit_article_path(@article) %>
