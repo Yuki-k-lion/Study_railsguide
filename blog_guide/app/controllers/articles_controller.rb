@@ -23,10 +23,28 @@ class ArticlesController < ApplicationController
     else
       render 'new'
     end
-
-
     # render plain: params[:article].inspect
   end
+
+  def edit
+    @article = Article.find(params[:id])
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render 'edit'
+    end
+  end
+
+
+
+
+
+
+
   # コントローラで渡されるパラメータはホワイトリストでチェックし、
   # 不正なマスアサインメントを防止する必要があるのです。
   # この場合、createでパラメータを安全に使用するために、
