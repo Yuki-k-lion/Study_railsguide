@@ -1,8 +1,34 @@
 class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+  def show
+    @article = Article.find(params[:id])
+    # Railsではコントローラのインスタンス変数はすべて
+    # ビューに渡されるようになっているからです
+    # (訳注: Railsはそのために背後でインスタンス変数をコントローラから
+    #   ビューに絶え間なくコピーし続けています)。
+  end
+
   def new
   end
 
   def create
-    render plain: params[:article].inspect
+    @article = Article.new(article_params)
+    @article.save
+    redirect_to @article #to :show action
+    # render plain: params[:article].inspect
   end
+  # コントローラで渡されるパラメータはホワイトリストでチェックし、
+  # 不正なマスアサインメントを防止する必要があるのです。
+  # この場合、createでパラメータを安全に使用するために、
+  # titleとtextパラメータの利用を「許可」し、かつ「必須」であることを
+  # 指定したいのです。この指定を文法化するために、
+  # requireメソッドとpermitメソッドが導入されました。
+  # これに基いて、該当行を以下のように変更します。
+
+  private
+    def article_params
+      params.require(:article).permit(:title,:text)
+    end
 end
