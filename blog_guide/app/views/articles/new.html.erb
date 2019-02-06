@@ -1,12 +1,12 @@
 <h1>New article</h1>
-<%= form_with scope: :article, local: true do |form| %>
+<%= form_with scope: :article,url: articles_path, local: true do |form| %>
   <p>
     <%= form.label :title %> <br>
-    <%= form.texr_field :title %>
+    <%= form.text_field :title %>
   </p>
   <p>
     <%= form.label :text %> <br>
-    <%= form.texr_field :text %>
+    <%= form.text_field :text %>
   </p>
   <p>
     <%= form.submit %>
