@@ -11,12 +11,20 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    @article = Article.new
+    # @article.errors.any?を呼び出すところでエラーになってしまうためです。
+    # エラーメッセージを含むフィールドは自動的にfield_with_errorsクラスを持つdivタグで囲まれます
   end
 
   def create
     @article = Article.new(article_params)
-    @article.save
-    redirect_to @article #to :show action
+    if @article.save
+      redirect_to @article
+    else
+      render 'new'
+    end
+
+
     # render plain: params[:article].inspect
   end
   # コントローラで渡されるパラメータはホワイトリストでチェックし、
